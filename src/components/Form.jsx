@@ -19,18 +19,28 @@ const Form = () => {
         }
       );
 
-      console.log("Form submitted:", form);
-      console.log("Server response:", response.data);
+      if (response.data.success) {
+        console.log("✅ Form submitted successfully:", response.data.crm);
+      } else {
+        console.warn("⚠️ CRM rejected the lead:", response.data.crm);
+        alert(`CRM error: ${response.data.crm.message}`);
+      }
     } catch (error) {
       console.error(
         "Submission failed:",
         error.response?.data || error.message
       );
+
+      if (error.response?.data?.crm?.message) {
+        alert(`CRM error: ${error.response.data.crm.message}`);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
+
   return (
     <div className="flex flex-col md:flex-row max-w-6xl mx-auto px-4 md:px-8 py-10 gap-8 items-stretch justify-between">
-      {/* Left: Form Section */}
       <div className="w-full md:w-1/2 border-2 border-[#bb8c2e] p-6 flex flex-col justify-start">
         <h2 className="text-3xl md:text-4xl font-bold text-[#bb8c2e] leading-tight whitespace-pre-line mb-8">
           THE SUITE LIFE UPGRADE
@@ -87,7 +97,6 @@ const Form = () => {
             />
           </div>
 
-          {/* Submit button + T&C text in shared container */}
           <div className="w-60 mx-auto text-center">
             <button
               type="submit"
@@ -108,7 +117,6 @@ const Form = () => {
         </form>
       </div>
 
-      {/* Right: Image */}
       <div className="w-full md:w-1/2 h-full">
         <img
           src="src/assets/Desktop/baneer-4.png"
