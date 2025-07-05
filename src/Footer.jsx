@@ -1,13 +1,22 @@
 import React from "react";
+import logo from "./assets/logo and rera/logo.png";
+import rare from "./assets/logo and rera/rera.png";
+
+import icon1 from "./assets/icons/1.png";
+import icon2 from "./assets/icons/2.png";
+import icon3 from "./assets/icons/3.png";
+import icon4 from "./assets/icons/4.png";
 
 const Footer = () => {
+  const icons = [icon1, icon2, icon3, icon4];
+
   return (
     <footer className="bg-[#231f20] text-white py-6 px-4 md:px-12 flex justify-center items-center">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-6 md:gap-10 w-full">
         {/* Left: Logo */}
         <div className="w-full md:w-[35%] flex justify-center md:justify-start items-center border-b md:border-b-0 md:border-r border-gray-600 md:pr-6">
           <img
-            src="/src/assets/logo and rera/logo.png"
+            src={logo}
             alt="Astoria Royals Logo"
             className="h-24 md:h-28 object-contain"
           />
@@ -35,20 +44,19 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Right: RERA + Icons */}
         <div className="w-full md:w-[25%] flex flex-col justify-center items-center  md:pl-6 gap-4">
           <h2>00000 00000</h2>
           <img
-            src="/src/assets/logo and rera/rera.png"
+            src={rare}
             alt="RERA Logo"
             className="h-12 md:h-20 object-contain"
           />
           <div className="flex gap-3 flex-wrap justify-center">
-            {[1, 2, 3, 4].map((num) => (
+            {icons.map((icon, idx) => (
               <img
-                key={num}
-                src={`/src/assets/icons/${num}.png`}
-                alt={`Icon ${num}`}
+                key={idx}
+                src={icon}
+                alt={`Icon ${idx + 1}`}
                 className="h-5 w-5 object-contain"
               />
             ))}

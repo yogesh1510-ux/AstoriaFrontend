@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import banner4 from "../assets/Desktop/banner4";
 
 const Form = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
@@ -119,7 +120,7 @@ const Form = () => {
 
       <div className="w-full md:w-1/2 h-full">
         <img
-          src="src/assets/Desktop/baneer-4.png"
+          src={banner4}
           alt="Astoria Royals"
           className="w-full h-full object-cover rounded-lg"
         />
