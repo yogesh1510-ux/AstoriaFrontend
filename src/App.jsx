@@ -6,6 +6,7 @@ import Hero from "./components/Hero";
 import Info from "./components/Info";
 import Form from "./components/Form";
 import Footer from "./Footer";
+import { Toaster } from "react-hot-toast";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -71,6 +72,7 @@ location, but a smart one.`,
 function App() {
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <Hero />
       <Info
         title={infoContent.intro1.title}
