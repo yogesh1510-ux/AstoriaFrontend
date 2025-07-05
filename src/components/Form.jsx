@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import banner4 from "../assets/Desktop/banner4";
+import banner4 from "../assets/Desktop/baneer-4.png";
 
 const Form = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
