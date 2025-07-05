@@ -21,10 +21,14 @@ const Form = () => {
       );
 
       if (response.data.success) {
-        console.log("✅ Form submitted successfully:", response.data.crm);
+        console.log(" Form submitted successfully:", response.data.crm);
+
+        toast.success("Lead submitted successfully!");
+
+        setForm({ name: "", email: "", phone: "" });
       } else {
-        console.warn("⚠️ CRM rejected the lead:", response.data.crm);
-        alert(`CRM error: ${response.data.crm.message}`);
+        console.warn(" CRM rejected the lead:", response.data.crm);
+        toast.error(`CRM error: ${response.data.crm.message}`);
       }
     } catch (error) {
       console.error(
@@ -33,11 +37,14 @@ const Form = () => {
       );
 
       if (error.response?.data?.crm?.message) {
-        alert(`CRM error: ${error.response.data.crm.message}`);
+        toast.error(`CRM error: ${error.response.data.crm.message}`);
       } else {
-        alert("Something went wrong. Please try again.");
+        toast.error("Something went wrong. Please try again.");
       }
     }
+
+    toast.success("Data submitted successfully!");
+    setForm({ name: "", email: "", phone: "" });
   };
 
   return (
