@@ -55,7 +55,7 @@ const Footer = () => {
             {icons.map((icon, idx) => (
               <img
                 key={idx}
-                src={icon}
+                src={icon1}
                 alt={`Icon ${idx + 1}`}
                 className="h-5 w-5 object-contain"
               />
