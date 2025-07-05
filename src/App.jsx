@@ -7,6 +7,9 @@ import Info from "./components/Info";
 import Form from "./components/Form";
 import Footer from "./Footer";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const description = `Royal living is reimagined as Astoria Royals, a
 luxurious project of spacious 4 & 3 BHK homes.
 Thoughtful layout and optimal use of space are
@@ -84,6 +87,8 @@ function App() {
       />
 
       <Footer />
+
+      <ToastContainer position="top-center" autoClose={3000} />
     </>
   );
 }
