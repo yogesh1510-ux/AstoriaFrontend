@@ -41,10 +41,10 @@ const Form = () => {
       } else {
         toast.error("Something went wrong. Please try again.");
       }
+    } finally {
+      setForm({ name: "", email: "", phone: "" });
+      toast.info("Form Submited.");
     }
-
-    toast.success("Data submitted successfully!");
-    setForm({ name: "", email: "", phone: "" });
   };
 
   return (
