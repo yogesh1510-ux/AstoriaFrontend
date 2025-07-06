@@ -14,37 +14,29 @@ const Form = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/submit-lead`,
-        {
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-        }
+        form
       );
 
       if (response.data.success) {
-        console.log(" Form submitted successfully:", response.data.crm);
-
         toast.success("Lead submitted successfully!");
-
         setForm({ name: "", email: "", phone: "" });
       } else {
-        console.warn(" CRM rejected the lead:", response.data.crm);
-        toast.error(`CRM error: ${response.data.crm.message}`);
+        const errorMessage =
+          response.data.crm?.message || "CRM rejected the lead.";
+        toast.error(
+          <span className="block break-words max-w-sm">
+            CRM error: {errorMessage}
+          </span>
+        );
       }
     } catch (error) {
-      console.error(
-        "Submission failed:",
-        error.response?.data || error.message
+      const errorMessage =
+        error.response?.data?.crm?.message ||
+        error.response?.data?.detail ||
+        "Something went wrong. Please try again.";
+      toast.error(
+        <span className="block break-words max-w-sm">{errorMessage}</span>
       );
-
-      if (error.response?.data?.crm?.message) {
-        toast.error(`CRM error: ${error.response.data.crm.message}`);
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-    } finally {
-      setForm({ name: "", email: "", phone: "" });
-      toast.info("Form Submited.");
     }
   };
 
@@ -61,50 +53,28 @@ const Form = () => {
           onSubmit={handleSubmit}
           className="flex flex-col gap-5 w-full max-w-md"
         >
-          <div className="flex flex-col gap-1">
-            <label htmlFor="name" className="text-sm text-white">
-              Name*
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              className="bg-transparent border border-gray-400 text-white px-4 py-2 rounded focus:outline-none focus:border-[#bb8c2e]"
-              value={form.name}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label htmlFor="email" className="text-sm text-white">
-              Email*
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              className="bg-transparent border border-gray-400 text-white px-4 py-2 rounded focus:outline-none focus:border-[#bb8c2e]"
-              value={form.email}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label htmlFor="phone" className="text-sm text-white">
-              Phone*
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              required
-              className="bg-transparent border border-gray-400 text-white px-4 py-2 rounded focus:outline-none focus:border-[#bb8c2e]"
-              value={form.phone}
-              onChange={handleChange}
-            />
-          </div>
+          {["name", "email", "phone"].map((field) => (
+            <div key={field} className="flex flex-col gap-1">
+              <label htmlFor={field} className="text-sm text-white">
+                {field.charAt(0).toUpperCase() + field.slice(1)}*
+              </label>
+              <input
+                type={
+                  field === "email"
+                    ? "email"
+                    : field === "phone"
+                    ? "tel"
+                    : "text"
+                }
+                id={field}
+                name={field}
+                required
+                className="bg-transparent border border-gray-400 text-white px-4 py-2 rounded focus:outline-none focus:border-[#bb8c2e]"
+                value={form[field]}
+                onChange={handleChange}
+              />
+            </div>
+          ))}
 
           <div className="w-60 mx-auto text-center">
             <button
