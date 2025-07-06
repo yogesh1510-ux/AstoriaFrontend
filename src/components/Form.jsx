@@ -33,10 +33,33 @@ const Form = () => {
       const errorMessage =
         error.response?.data?.crm?.message ||
         error.response?.data?.detail ||
-        "Something went wrong. Please try again.";
-      toast.error(
-        <span className="block break-words max-w-sm">{errorMessage}</span>
-      );
+        "Something went wrong.";
+
+      const msg = errorMessage.toLowerCase();
+
+      if (msg.includes("already exists") && msg.includes("mobile")) {
+        toast("You've already submitted this number.", { icon: "ℹ️" });
+      } else if (msg.includes("already exists") && msg.includes("email")) {
+        toast("This email is already registered.", { icon: "ℹ️" });
+      } else if (msg.includes("mobile number required")) {
+        toast("Please enter your mobile number.", { icon: "📱" });
+      } else if (msg.includes("source required")) {
+        toast("Source is missing. Please contact support.", { icon: "⚠️" });
+      } else if (msg.includes("source does not exist")) {
+        toast("Invalid source. Please contact support.", { icon: "⚠️" });
+      } else if (msg.includes("source detail required")) {
+        toast("Source detail is missing.", { icon: "⚠️" });
+      } else if (msg.includes("source detail does not exist")) {
+        toast("Invalid source detail. Please contact support.", { icon: "⚠️" });
+      } else if (msg.includes("project name does not exist")) {
+        toast("Project misconfiguration. Please try again later.", {
+          icon: "🚫",
+        });
+      } else {
+        toast("Something went wrong. Please try again.", {
+          icon: "❌",
+        });
+      }
     }
   };
 
