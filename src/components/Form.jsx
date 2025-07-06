@@ -30,8 +30,10 @@ const Form = () => {
         );
       }
     } catch (error) {
+      const crmData = error.response?.data?.crm || {};
       const errorMessage =
-        error.response?.data?.crm?.message ||
+        crmData.status ||
+        crmData.message ||
         error.response?.data?.detail ||
         "Something went wrong.";
 
